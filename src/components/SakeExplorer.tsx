@@ -189,7 +189,7 @@ export function SakeExplorer({
                               : "bg-white text-stone-700 hover:bg-stone-200"
                           }`}
                         >
-                          {prefecture.name.replace("県", "").replace("府", "").replace("都", "").replace("道", "")}
+                          {prefecture.name}
                         </button>
                       ))}
                   </div>
