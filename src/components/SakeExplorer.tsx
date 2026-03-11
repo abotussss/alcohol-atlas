@@ -122,14 +122,14 @@ export function SakeExplorer({
   );
 
   return (
-    <section className="mx-auto mt-8 max-w-6xl max-md:rounded-[1.4rem] max-md:border max-md:border-white/50 max-md:bg-[rgba(247,242,234,0.84)] max-md:p-3 max-md:shadow-[0_16px_44px_rgba(48,29,19,0.08)] max-md:backdrop-blur-sm max-md:max-h-[78svh] max-md:overflow-hidden">
-      <div className="mb-5 flex flex-wrap gap-2 sm:gap-3 max-md:sticky max-md:top-0 max-md:z-10 max-md:bg-[rgba(247,242,234,0.96)] max-md:pb-3">
+    <section className="mx-auto mt-8 max-w-6xl max-md:rounded-[1.6rem] max-md:border max-md:border-white/50 max-md:bg-[rgba(247,242,234,0.84)] max-md:p-4 max-md:shadow-[0_16px_44px_rgba(48,29,19,0.08)] max-md:backdrop-blur-sm">
+      <div className="mb-6 flex flex-wrap gap-2 sm:gap-3 max-md:sticky max-md:top-3 max-md:z-10 max-md:-mx-1 max-md:flex-nowrap max-md:overflow-x-auto max-md:bg-[rgba(247,242,234,0.96)] max-md:px-1 max-md:pb-3 max-md:[scrollbar-width:none]">
         {tabLabels.map((tab) => (
           <button
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
+            className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
               activeTab === tab.id
                 ? "bg-stone-900 text-stone-50"
                 : "border border-stone-300 bg-white/80 text-stone-700 hover:border-stone-900"
@@ -141,7 +141,7 @@ export function SakeExplorer({
       </div>
 
       {activeTab === "brand" ? (
-        <div className="grid gap-4 max-md:max-h-[calc(78svh-5.5rem)] max-md:overflow-y-auto md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
           {brands.map((brand) => (
             <BrandCard key={brand.slug} brand={brand} />
           ))}
@@ -149,7 +149,7 @@ export function SakeExplorer({
       ) : null}
 
       {activeTab === "prefecture" ? (
-        <div className="grid gap-4 max-md:max-h-[calc(78svh-5.5rem)] max-md:overflow-y-auto lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid gap-4 sm:gap-5 lg:grid-cols-[0.9fr_1.1fr]">
           <article className="rounded-[1.2rem] border border-white/50 bg-white/82 p-4 shadow-[0_16px_44px_rgba(48,29,19,0.08)] backdrop-blur-sm sm:rounded-[1.7rem] sm:p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">
               Prefecture
@@ -248,7 +248,7 @@ export function SakeExplorer({
             )}
 
             {selectedPrefecture && brandsByPrefecture.length ? (
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
                 {brandsByPrefecture.map((brand) => (
                   <BrandCard key={brand.slug} brand={brand} />
                 ))}
@@ -263,14 +263,14 @@ export function SakeExplorer({
       ) : null}
 
       {activeTab === "taste" ? (
-        <div className="grid gap-4 max-md:max-h-[calc(78svh-5.5rem)] max-md:overflow-y-auto">
+        <div className="grid gap-4 sm:gap-5">
           <div className="flex flex-wrap gap-2 sm:gap-3">
             {(["dry", "balanced", "sweet"] as SakeTaste[]).map((value) => (
               <button
                 key={value}
                 type="button"
                 onClick={() => setTaste(value)}
-            className={`rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
+                className={`rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
                   taste === value
                     ? "bg-stone-900 text-stone-50"
                     : "border border-stone-300 bg-white/80 text-stone-700"
@@ -280,7 +280,7 @@ export function SakeExplorer({
               </button>
             ))}
           </div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
             {brandsByTaste.map((brand) => (
               <BrandCard
                 key={brand.slug}
@@ -293,14 +293,14 @@ export function SakeExplorer({
       ) : null}
 
       {activeTab === "serve" ? (
-        <div className="grid gap-4 max-md:max-h-[calc(78svh-5.5rem)] max-md:overflow-y-auto">
+        <div className="grid gap-4 sm:gap-5">
           <div className="flex flex-wrap gap-2 sm:gap-3">
             {(["cold", "warm", "hot"] as SakeServeStyle[]).map((value) => (
               <button
                 key={value}
                 type="button"
                 onClick={() => setServeStyle(value)}
-            className={`rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
+                className={`rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
                   serveStyle === value
                     ? "bg-stone-900 text-stone-50"
                     : "border border-stone-300 bg-white/80 text-stone-700"
@@ -310,7 +310,7 @@ export function SakeExplorer({
               </button>
             ))}
           </div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
             {brandsByServe.map((brand) => (
               <BrandCard
                 key={brand.slug}

@@ -59,8 +59,8 @@ export function WineExplorer({ redVarieties, whiteVarieties }: Props) {
   const varieties = style === "red" ? redVarieties : whiteVarieties;
 
   return (
-    <section className="mx-auto mt-8 max-w-6xl max-md:rounded-[1.4rem] max-md:border max-md:border-white/50 max-md:bg-[rgba(247,242,234,0.84)] max-md:p-3 max-md:shadow-[0_16px_44px_rgba(48,29,19,0.08)] max-md:backdrop-blur-sm max-md:max-h-[78svh] max-md:overflow-hidden">
-      <div className="mb-5 flex flex-wrap gap-2 sm:gap-3 max-md:sticky max-md:top-0 max-md:z-10 max-md:bg-[rgba(247,242,234,0.96)] max-md:pb-3">
+    <section className="mx-auto mt-8 max-w-6xl max-md:rounded-[1.6rem] max-md:border max-md:border-white/50 max-md:bg-[rgba(247,242,234,0.84)] max-md:p-4 max-md:shadow-[0_16px_44px_rgba(48,29,19,0.08)] max-md:backdrop-blur-sm">
+      <div className="mb-6 flex flex-wrap gap-2 sm:gap-3 max-md:sticky max-md:top-3 max-md:z-10 max-md:-mx-1 max-md:flex-nowrap max-md:overflow-x-auto max-md:bg-[rgba(247,242,234,0.96)] max-md:px-1 max-md:pb-3 max-md:[scrollbar-width:none]">
         {([
           { id: "red", label: "赤ワイン" },
           { id: "white", label: "白ワイン" },
@@ -69,7 +69,7 @@ export function WineExplorer({ redVarieties, whiteVarieties }: Props) {
             key={tab.id}
             type="button"
             onClick={() => setStyle(tab.id)}
-            className={`rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
+            className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
               style === tab.id
                 ? "bg-stone-900 text-stone-50"
                 : "border border-stone-300 bg-white/80 text-stone-700"
@@ -80,7 +80,7 @@ export function WineExplorer({ redVarieties, whiteVarieties }: Props) {
         ))}
       </div>
 
-      <div className="mb-4 flex items-end justify-between gap-4">
+      <div className="mb-5 flex items-end justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">
             {style === "red" ? "Red" : "White"}
@@ -92,7 +92,7 @@ export function WineExplorer({ redVarieties, whiteVarieties }: Props) {
         <p className="text-sm text-stone-500">{varieties.length} varieties</p>
       </div>
 
-      <div className="grid gap-3 max-md:max-h-[calc(78svh-7rem)] max-md:overflow-y-auto">
+      <div className="grid gap-4 sm:gap-5">
         {varieties.map((variety) => (
           <VarietyCard key={variety.slug} variety={variety} />
         ))}
