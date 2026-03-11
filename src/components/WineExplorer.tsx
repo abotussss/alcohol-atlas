@@ -19,10 +19,10 @@ function VarietyCard({ variety }: { variety: WineVariety }) {
   return (
     <Link
       href={`/wine/${variety.slug}`}
-      className="rounded-[1rem] border border-white/50 bg-white/82 p-3 shadow-[0_12px_34px_rgba(48,29,19,0.08)] backdrop-blur-sm transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(48,29,19,0.12)] sm:rounded-[1.4rem] sm:p-4"
+      className="rounded-[1rem] border border-white/50 bg-white/82 p-3 shadow-[0_12px_34px_rgba(48,29,19,0.08)] backdrop-blur-sm transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(48,29,19,0.12)] sm:rounded-[1.4rem] sm:p-5 lg:p-6"
     >
-      <div className="grid gap-3 sm:gap-4 md:grid-cols-[140px_1fr]">
-        <div className="h-24 overflow-hidden rounded-[0.95rem] bg-[linear-gradient(180deg,rgba(248,244,237,1),rgba(234,225,214,0.92))] sm:h-auto sm:rounded-[1rem]">
+      <div className="grid gap-3 sm:gap-5 md:grid-cols-[164px_1fr]">
+        <div className="h-24 overflow-hidden rounded-[0.95rem] bg-[linear-gradient(180deg,rgba(248,244,237,1),rgba(234,225,214,0.92))] sm:h-32 sm:rounded-[1rem] lg:h-36">
           <DrinkIllustration
             kind="wine"
             title={variety.name}
@@ -36,7 +36,7 @@ function VarietyCard({ variety }: { variety: WineVariety }) {
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-400 sm:text-xs sm:tracking-[0.2em]">
                 {wineStyleLabels[variety.style]}
               </p>
-              <h3 className="mt-1 text-base font-semibold tracking-tight text-stone-900 sm:mt-2 sm:text-2xl">
+              <h3 className="mt-1 text-base font-semibold tracking-tight text-stone-900 sm:mt-2 sm:text-[1.7rem] sm:leading-8">
                 {variety.name}
               </h3>
             </div>

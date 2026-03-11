@@ -114,7 +114,7 @@ function BottleCard({
             {bottle.name}
           </h3>
         </div>
-        <span className="rounded-full bg-stone-900 px-2.5 py-1 text-[10px] font-semibold text-stone-50 sm:px-3 sm:text-xs">
+        <span className="inline-flex min-h-7 min-w-[4.9rem] items-center justify-center rounded-full bg-stone-900 px-2 py-1 text-center text-[10px] font-semibold leading-none text-stone-50 sm:min-h-8 sm:min-w-[5.6rem] sm:px-3 sm:text-xs">
           {tag}
         </span>
       </div>
