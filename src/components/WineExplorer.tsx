@@ -21,7 +21,7 @@ function VarietyCard({ variety }: { variety: WineVariety }) {
       href={`/wine/${variety.slug}`}
       className="rounded-[1rem] border border-white/50 bg-white/82 p-3 shadow-[0_12px_34px_rgba(48,29,19,0.08)] backdrop-blur-sm transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(48,29,19,0.12)] sm:rounded-[1.4rem] sm:p-5 lg:p-6"
     >
-      <div className="grid gap-3 sm:gap-5 md:grid-cols-[164px_1fr]">
+      <div className="grid gap-3 sm:gap-5 md:grid-cols-[176px_minmax(0,1fr)] xl:grid-cols-[188px_minmax(0,1fr)]">
         <div className="h-24 overflow-hidden rounded-[0.95rem] bg-[linear-gradient(180deg,rgba(248,244,237,1),rgba(234,225,214,0.92))] sm:h-32 sm:rounded-[1rem] lg:h-36">
           <DrinkIllustration
             kind="wine"
@@ -36,7 +36,7 @@ function VarietyCard({ variety }: { variety: WineVariety }) {
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-400 sm:text-xs sm:tracking-[0.2em]">
                 {wineStyleLabels[variety.style]}
               </p>
-              <h3 className="mt-1 text-[0.98rem] font-semibold leading-[1.25] tracking-tight text-stone-900 [text-wrap:balance] sm:mt-2 sm:text-[1.55rem] sm:leading-[1.22] lg:text-[1.75rem]">
+              <h3 className="mt-1 text-[0.98rem] font-semibold leading-[1.25] tracking-tight text-stone-900 [word-break:keep-all] [overflow-wrap:normal] sm:mt-2 sm:text-[1.55rem] sm:leading-[1.22] lg:text-[1.8rem]">
                 {variety.name}
               </h3>
             </div>

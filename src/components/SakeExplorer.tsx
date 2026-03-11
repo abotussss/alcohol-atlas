@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   SakeBrand,
   SakeBottle,
@@ -154,6 +154,7 @@ export function SakeExplorer({
   const [selectedPrefecture, setSelectedPrefecture] = useState(initialPrefecture);
   const [taste, setTaste] = useState<SakeTaste>("dry");
   const [serveStyle, setServeStyle] = useState<SakeServeStyle>("cold");
+  const prefectureResultRef = useRef<HTMLDivElement | null>(null);
 
   const prefectureGuide = prefectures.find((prefecture) => prefecture.name === selectedPrefecture);
   const featuredLabels = selectedPrefecture
@@ -184,6 +185,25 @@ export function SakeExplorer({
       ),
     [brands, serveStyle],
   );
+
+  useEffect(() => {
+    if (activeTab !== "prefecture" || !selectedPrefecture || typeof window === "undefined") {
+      return;
+    }
+
+    if (!window.matchMedia("(max-width: 767px)").matches) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      prefectureResultRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeTab, selectedPrefecture]);
 
   return (
     <section className="mx-auto mt-8 max-w-6xl max-md:rounded-[1.6rem] max-md:border max-md:border-white/50 max-md:bg-[rgba(247,242,234,0.84)] max-md:p-4 max-md:shadow-[0_16px_44px_rgba(48,29,19,0.08)] max-md:backdrop-blur-sm">
@@ -265,7 +285,7 @@ export function SakeExplorer({
             </div>
           </article>
 
-          <div className="grid gap-5">
+          <div ref={prefectureResultRef} className="grid gap-5">
             {selectedPrefecture && prefectureGuide ? (
               <article className="rounded-[1.2rem] border border-white/50 bg-white/82 p-5 shadow-[0_16px_44px_rgba(48,29,19,0.08)] backdrop-blur-sm sm:rounded-[1.7rem] sm:p-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-400">
