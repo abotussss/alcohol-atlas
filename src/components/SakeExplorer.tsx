@@ -105,20 +105,20 @@ function BottleCard({
       href={`/sake/${brand.slug}#${anchorId(bottle.name)}`}
       className="rounded-[1rem] border border-white/50 bg-white/82 p-3 shadow-[0_16px_44px_rgba(48,29,19,0.08)] backdrop-blur-sm transition hover:-translate-y-1 hover:shadow-[0_22px_56px_rgba(48,29,19,0.12)] sm:rounded-[1.5rem] sm:p-5"
     >
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-400 sm:text-xs sm:tracking-[0.2em]">
             {getSakeBrandPrefecture(brand)} · {brand.name}
           </p>
-          <h3 className="mt-1 text-base font-semibold tracking-tight text-stone-900 sm:mt-2 sm:text-2xl">
+          <h3 className="mt-1 text-[0.95rem] font-semibold leading-5 tracking-tight text-stone-900 sm:mt-2 sm:text-2xl sm:leading-8">
             {bottle.name}
           </h3>
         </div>
-        <span className="inline-flex min-h-7 min-w-[4.9rem] items-center justify-center rounded-full bg-stone-900 px-2 py-1 text-center text-[10px] font-semibold leading-none text-stone-50 sm:min-h-8 sm:min-w-[5.6rem] sm:px-3 sm:text-xs">
+        <span className="inline-flex h-6 w-[4.6rem] shrink-0 items-center justify-center rounded-full bg-stone-900 px-2 text-center text-[10px] font-semibold leading-none text-stone-50 sm:h-8 sm:w-[5.6rem] sm:px-3 sm:text-xs">
           {tag}
         </span>
       </div>
-      <p className="mt-2 text-sm leading-6 text-stone-600 sm:mt-3 sm:leading-7">
+      <p className="mt-2 hidden text-sm leading-6 text-stone-600 sm:mt-3 sm:block sm:leading-7">
         {bottle.summary}
       </p>
       <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
@@ -319,13 +319,13 @@ export function SakeExplorer({
 
       {activeTab === "taste" ? (
         <div className="grid gap-4 sm:gap-5">
-          <div className="flex flex-wrap gap-2 sm:gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
             {(["dry", "balanced", "sweet"] as SakeTaste[]).map((value) => (
               <button
                 key={value}
                 type="button"
                 onClick={() => setTaste(value)}
-                className={`rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
+                className={`min-h-11 rounded-[0.9rem] px-2 py-2.5 text-center text-sm font-semibold transition sm:min-h-0 sm:rounded-full sm:px-5 sm:py-3 ${
                   taste === value
                     ? "bg-stone-900 text-stone-50"
                     : "border border-stone-300 bg-white/80 text-stone-700"
@@ -350,13 +350,13 @@ export function SakeExplorer({
 
       {activeTab === "serve" ? (
         <div className="grid gap-4 sm:gap-5">
-          <div className="flex flex-wrap gap-2 sm:gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
             {(["cold", "warm", "hot"] as SakeServeStyle[]).map((value) => (
               <button
                 key={value}
                 type="button"
                 onClick={() => setServeStyle(value)}
-                className={`rounded-full px-4 py-2.5 text-sm font-semibold transition sm:px-5 sm:py-3 ${
+                className={`min-h-11 rounded-[0.9rem] px-2 py-2.5 text-center text-sm font-semibold transition sm:min-h-0 sm:rounded-full sm:px-5 sm:py-3 ${
                   serveStyle === value
                     ? "bg-stone-900 text-stone-50"
                     : "border border-stone-300 bg-white/80 text-stone-700"

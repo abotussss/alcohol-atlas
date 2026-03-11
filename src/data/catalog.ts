@@ -3471,19 +3471,24 @@ export function inferSakeServeStyles(bottle: SakeBottle): SakeServeStyle[] {
   const tempText = getFactValue(bottle.facts, "おすすめ温度");
   const styles = new Set<SakeServeStyle>();
 
+  if (tempText.includes("熱燗")) {
+    styles.add("hot");
+  }
+
+  if (tempText.includes("ぬる燗")) {
+    styles.add("warm");
+  }
+
   if (tempText.includes("燗")) {
-    if (tempText.includes("熱燗")) {
-      styles.add("hot");
-    } else {
-      styles.add("warm");
-    }
+    styles.add("warm");
+    styles.add("hot");
   }
 
   if (tempText.includes("常温")) {
     styles.add("warm");
   }
 
-  if (tempText.match(/\b[6-9]|1[0-2]°C|10°C|12°C/)) {
+  if (tempText.match(/\b([5-9]|1[0-2])°C\b|6-10°C|6-8°C|8-10°C|8-12°C|10°C前後|10-12°C|10-14°C|12°C/)) {
     styles.add("cold");
   }
 
