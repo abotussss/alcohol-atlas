@@ -240,10 +240,10 @@ export function DrinkIllustration({ kind, title, accent, idBase, themeKey = "" }
           }}
         />
         <div className="absolute inset-0 opacity-80 mix-blend-soft-light" style={{ background: `radial-gradient(circle at 50% 18%, ${frame.glow} 0%, transparent 42%)` }} />
-        <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/34 via-black/8 to-transparent" />
-        <div className="absolute left-3 top-3">
+        <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/28 via-black/6 to-transparent sm:h-14" />
+        <div className="absolute left-2 top-2 sm:left-3 sm:top-3">
           <span
-            className="inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold tracking-[0.14em] shadow-sm sm:text-[11px]"
+            className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.12em] shadow-sm sm:px-3 sm:py-1 sm:text-[11px]"
             style={{
               backgroundColor: kind === "sake" ? `${frame.glow}` : "rgba(255,255,255,0.88)",
               color: kind === "sake" ? frame.frame : "#44403c",
@@ -252,19 +252,19 @@ export function DrinkIllustration({ kind, title, accent, idBase, themeKey = "" }
             {fallbackLabels[kind]}
           </span>
         </div>
-        <div className="absolute inset-x-3 bottom-3">
+        <div className="absolute inset-x-2 bottom-2 sm:inset-x-3 sm:bottom-3">
           <div
-            className="rounded-xl px-3 py-2 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)]"
+            className="rounded-lg px-2.5 py-1.5 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] sm:rounded-xl sm:px-3 sm:py-2"
             style={{
               backgroundColor: kind === "sake" ? `${frame.surface}dd` : "rgba(255,255,255,0.18)",
               backdropFilter: kind === "sake" ? "none" : "blur(12px)",
             }}
           >
-            <p className="truncate text-[0.72rem] font-semibold tracking-[0.08em] text-white/80 sm:text-xs">
+            <p className="truncate text-[0.62rem] font-semibold tracking-[0.06em] text-white/80 sm:text-xs">
               {kind === "sake" ? "BRAND PROFILE" : "STYLE PROFILE"}
             </p>
             <p
-              className="truncate text-sm font-semibold tracking-tight sm:text-base"
+              className="truncate text-[0.88rem] font-semibold tracking-tight sm:text-base"
               style={{ color: kind === "sake" ? frame.frame : "#ffffff" }}
             >
               {title}
