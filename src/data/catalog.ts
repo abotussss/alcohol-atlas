@@ -180,7 +180,7 @@ const createDataSlug = (value: string) =>
   value
     .toLowerCase()
     .replace(/[\s/・]+/g, "-")
-    .replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff-]+/g, "")
+    .replace(/[^a-z0-9-]+/g, "")
     .replace(/-+/g, "-")
     .replace(/^-+|-+$/g, "");
 
@@ -2664,6 +2664,165 @@ const wineVarieties: WineVariety[] = [
       ),
     ],
   },
+  {
+    category: "wine",
+    slug: "natural-gamay",
+    name: "自然派ガメイ",
+    style: "natural",
+    summary: "自然派赤の入口として非常に使いやすく、赤果実と軽やかさを素直に感じやすいスタイルです。",
+    story:
+      "ボジョレーではマセラシオン由来の明るさ、オーストラリアでは果実感、日本ではやさしい食中性として見えやすいです。",
+    accent: "ruby",
+    highlights: ["自然派赤", "軽やか", "赤果実"],
+    facts: facts(
+      ["主なスタイル", "軽やかで果実感の明るい自然派赤"],
+      ["香りの方向", "ラズベリー / すみれ / ハーブ"],
+      ["見るポイント", "果実感と飲み心地の軽さ"],
+      ["相性", "シャルキュトリ / 焼き鳥 / 軽い煮込み"],
+    ),
+    radar: radar([4.2, 2.8, 2.9, 4.2, 3.9]),
+    countries: [
+      wineCountry(
+        "france",
+        "フランス",
+        "🇫🇷",
+        "Beaujolais",
+        "自然派ガメイの中心地で、マセラシオン由来の明るい果実感と飲み心地の軽さが基準になります。",
+        [
+          wineBottle("Morgon", "Marcel Lapierre", "Beaujolais", "自然派ガメイを語るうえで外せない象徴的な一本。", ["象徴的", "赤果実"]),
+          wineBottle("Morgon Cote du Py", "Jean Foillard", "Beaujolais", "軽やかさの中に深みも見せる代表例。", ["代表例", "奥行き"]),
+        ],
+      ),
+      wineCountry(
+        "australia",
+        "オーストラリア",
+        "🇦🇺",
+        "Victoria / Adelaide Hills",
+        "よりジューシーで親しみやすく、自然派初心者でも入りやすい果実感が出やすいです。",
+        [
+          wineBottle("Gamay", "By Farr", "Victoria", "オーストラリアの上質なガメイとして知られる一本。", ["ジューシー", "上質"]),
+          wineBottle("Village Gamay", "Ochota Barrels", "Adelaide Hills", "自然派文脈で人気のあった明るい果実感のスタイル。", ["自然派", "明るい"]),
+        ],
+      ),
+      wineCountry(
+        "japan",
+        "日本",
+        "🇯🇵",
+        "北海道 / 長野",
+        "日本では冷涼感とやわらかな果実味が出やすく、食事に寄り添う自然派赤として見やすいです。",
+        [
+          wineBottle("Gamay", "ドメーヌ・タカヒコ", "北海道余市", "北海道の冷涼感と自然派らしい透明感を感じやすい一本。", ["日本ワイン", "冷涼感"]),
+          wineBottle("Vin Vie Gamay", "ヴィンヴィ", "長野県", "軽やかな果実味で食中向きにまとまる日本の自然派ガメイ。", ["日本ワイン", "食中向き"]),
+        ],
+      ),
+    ],
+  },
+  {
+    category: "wine",
+    slug: "low-intervention-pinot-noir",
+    name: "低介入ピノ・ノワール",
+    style: "natural",
+    summary: "繊細な果実味を残しつつ、造りの素直さや土っぽさが出やすい自然派ピノ・ノワールです。",
+    story:
+      "フランスではより繊細で土壌感、ニュージーランドでは明るい果実、日本ではやさしい食中性が見えやすいです。",
+    accent: "plum",
+    highlights: ["自然派赤", "繊細", "冷涼感"],
+    facts: facts(
+      ["主なスタイル", "繊細で素直な自然派ピノ"],
+      ["香りの方向", "チェリー / 紅茶 / 土"],
+      ["見るポイント", "果実の細さと旨みの残り方"],
+      ["相性", "鴨 / きのこ料理 / 炭火焼き"],
+    ),
+    radar: radar([4.1, 2.5, 3.1, 4.0, 4.3]),
+    countries: [
+      wineCountry(
+        "france",
+        "フランス",
+        "🇫🇷",
+        "Jura / Bourgogne",
+        "自然派ピノでは果実の細さと土っぽさの両方が見えやすく、冷涼感ある酸が魅力です。",
+        [
+          wineBottle("Bourgogne Rouge", "Domaine Prieure Roch", "Bourgogne", "低介入ピノの代表格として語られることの多い一本。", ["低介入", "繊細"]),
+          wineBottle("La Cabane Pinot Noir", "Domaine de la Tournelle", "Jura", "ジュラらしい素朴さと軽やかさが見えやすい一本。", ["ジュラ", "軽やか"]),
+        ],
+      ),
+      wineCountry(
+        "new-zealand",
+        "ニュージーランド",
+        "🇳🇿",
+        "Central Otago / Marlborough",
+        "果実味は明るく、自然派でも重くなりすぎずきれいな酸を保ちやすいです。",
+        [
+          wineBottle("Pinot Noir", "Kindeli", "Nelson", "自然派ニュージーランドの文脈で人気のある軽快なピノ。", ["自然派", "軽快"]),
+          wineBottle("Main Divide Pinot Noir", "Pegasus Bay", "North Canterbury", "親しみやすい果実味で入口にしやすい一本。", ["果実味", "親しみやすい"]),
+        ],
+      ),
+      wineCountry(
+        "japan",
+        "日本",
+        "🇯🇵",
+        "北海道 / 長野",
+        "日本では冷涼感とやわらかな旨みが前に出やすく、繊細な食中酒として見やすいです。",
+        [
+          wineBottle("Pinot Noir", "農楽蔵", "北海道函館", "北海道の自然派ピノとして人気が高く、やわらかな果実味が魅力。", ["日本ワイン", "自然派"]),
+          wineBottle("Pinot Noir", "Le Milieu", "長野県東御", "長野の冷涼感と透明感を感じやすい一本。", ["日本ワイン", "透明感"]),
+        ],
+      ),
+    ],
+  },
+  {
+    category: "wine",
+    slug: "natural-koshu",
+    name: "自然派甲州 / デラウェア系",
+    style: "natural",
+    summary: "日本の自然派白の入口として見やすく、やわらかな柑橘感や旨みを食中で楽しみやすいスタイルです。",
+    story:
+      "山梨では甲州の繊細さ、東北や北関東ではデラウェアやブレンドの素朴さが見えやすく、日本らしい自然派白の広がりを掴めます。",
+    accent: "amber",
+    highlights: ["自然派白", "日本ワイン", "食中向き"],
+    facts: facts(
+      ["主なスタイル", "やさしい旨みを持つ自然派白"],
+      ["香りの方向", "和柑橘 / ハーブ / 白桃"],
+      ["見るポイント", "繊細さと旨みの残し方"],
+      ["相性", "出汁料理 / 野菜料理 / 白身魚"],
+    ),
+    radar: radar([3.8, 2.7, 3.0, 4.1, 4.0]),
+    countries: [
+      wineCountry(
+        "japan",
+        "日本",
+        "🇯🇵",
+        "山梨 / 宮城 / 栃木",
+        "日本の自然派白では、甲州やデラウェアを使ったやさしい旨みと食中性が大きな魅力です。",
+        [
+          wineBottle("Oro", "Fattoria AL FIORE", "宮城県", "日本の自然派白として定番感のある、やわらかな旨みの一本。", ["自然派", "日本ワイン"]),
+          wineBottle("甲州 F.O.S.", "Coco Farm & Winery", "栃木県", "スキンコンタクト由来の複雑さも感じられる代表例。", ["甲州", "複雑"]),
+        ],
+      ),
+      wineCountry(
+        "france",
+        "フランス",
+        "🇫🇷",
+        "Roussillon / Alsace",
+        "日本の自然派白と比べる基準として、よりミネラル感や土壌感を前に出した低介入白が見やすいです。",
+        [
+          wineBottle("Le Temps des Cerises Blanc", "Domaine Matassa", "Roussillon", "低介入白の果実感と複雑さを感じやすい一本。", ["低介入", "複雑"]),
+          wineBottle("Le Vin d'Alsace", "Domaine Binner", "Alsace", "自然派白の厚みとやわらかさを見やすい代表例。", ["自然派", "厚み"]),
+        ],
+      ),
+      wineCountry(
+        "georgia",
+        "ジョージア",
+        "🇬🇪",
+        "Imereti / Kakheti",
+        "より発酵由来の旨みや素朴さが見えやすく、日本の自然派白を相対化して見る基準になります。",
+        [
+          wineBottle("Tsolikouri Tsitska", "Baia's Wine", "Imereti", "低介入白の旨みとやわらかさを感じやすいジョージアの一本。", ["低介入", "旨み"]),
+          wineBottle("Mtsvane Amber", "Pheasant's Tears", "Kakheti", "素朴さと発酵感の奥行きが見えやすい代表例。", ["素朴", "奥行き"]),
+        ],
+      ),
+    ],
+  },
 ];
 
 const prefectureRepresentativeSakeBrands: SakeBrand[] = [
@@ -3499,6 +3658,7 @@ const buildGeneratedBottle = (
 const createGeneratedFeaturedBrand = (
   guide: (typeof prefectureGuides)[number],
   brandName: string,
+  index: number,
 ): SakeBrand => {
   const labels = prefectureFeaturedLabels[guide.name] ?? [];
   const primaryLabel = labels.find((label) => label.includes(brandName)) ?? `${brandName} 純米吟醸`;
@@ -3512,7 +3672,7 @@ const createGeneratedFeaturedBrand = (
 
   return {
     category: "sake",
-    slug: createDataSlug(`${guide.slug}-${brandName}`),
+    slug: createDataSlug(`sake-${guide.slug}-${index + 1}`),
     name: brandName,
     summary: `${guide.name}でよく名前が挙がる代表ブランドで、お店で銘柄名を見たときの入口として押さえやすい銘柄です。`,
     story: `${guide.summary} という県の傾向を踏まえつつ、まずは ${brandName} の定番どころから方向性をつかめるようにしています。`,
@@ -3541,7 +3701,7 @@ const baseSakeBrandNames = new Set(baseSakeBrands.map((brand) => brand.name));
 const generatedFeaturedSakeBrands = prefectureGuides.flatMap((guide) =>
   guide.featuredBrands
     .filter((brandName) => !baseSakeBrandNames.has(brandName))
-    .map((brandName) => createGeneratedFeaturedBrand(guide, brandName)),
+    .map((brandName, index) => createGeneratedFeaturedBrand(guide, brandName, index)),
 );
 
 const allSakeBrands = [...baseSakeBrands, ...generatedFeaturedSakeBrands];

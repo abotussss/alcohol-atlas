@@ -157,9 +157,14 @@ export default async function DetailPage({ params }: Props) {
                     <p className="mt-4 text-sm leading-7 text-stone-600">
                       {bottle.summary}
                     </p>
-                    <p className="mt-3 text-sm leading-7 text-stone-600">
-                      {bottle.notes}
-                    </p>
+                    <div className="mt-4 rounded-[1.05rem] border border-stone-200/80 bg-[rgba(248,244,237,0.92)] p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">
+                        背景情報
+                      </p>
+                      <p className="mt-2 text-sm leading-7 text-stone-600">
+                        {bottle.notes}
+                      </p>
+                    </div>
                     <div className="mt-4 flex flex-wrap gap-2">
                       {bottle.highlights.map((item) => (
                         <span
@@ -263,11 +268,14 @@ export default async function DetailPage({ params }: Props) {
 
           <article className="rounded-[1.35rem] border border-white/50 bg-white/80 p-4 shadow-[0_16px_44px_rgba(48,29,19,0.08)] backdrop-blur-sm sm:rounded-[1.7rem] sm:p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">
-              Countries
+              品種背景
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight text-stone-900">
-              国を選ぶ
+              品種と産地の見どころ
             </h2>
+            <p className="mt-4 text-sm leading-7 text-stone-600">
+              {variety.story} 品種の個性と国ごとの違いを先に把握しておくと、店頭でボトル名だけを見ても選びやすくなります。
+            </p>
             <div className="mt-5 flex flex-wrap gap-3">
               {variety.countries.map((country) => (
                 <a
@@ -305,7 +313,7 @@ export default async function DetailPage({ params }: Props) {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-400">
-                    Country
+                    国・地方の特色
                   </p>
                   <h2 className="mt-2 text-2xl font-semibold tracking-tight text-stone-900 sm:text-3xl">
                     <span className="mr-3">{country.flag}</span>
@@ -314,7 +322,12 @@ export default async function DetailPage({ params }: Props) {
                 </div>
                 <p className="text-sm text-stone-500">{country.region}</p>
               </div>
-              <p className="mt-4 text-sm leading-7 text-stone-600">{country.summary}</p>
+              <div className="mt-4 rounded-[1.05rem] border border-stone-200/80 bg-[rgba(248,244,237,0.92)] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">
+                  特色
+                </p>
+                <p className="mt-2 text-sm leading-7 text-stone-600">{country.summary}</p>
+              </div>
 
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 {country.bottles.map((bottle) => (
