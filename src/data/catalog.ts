@@ -1,3 +1,5 @@
+import { prefectureFeaturedLabels, prefectureGuides } from "./prefectures";
+
 export type CategorySlug = "sake" | "wine" | "beer" | "shochu" | "umeshu";
 export type Accent = "amber" | "ruby" | "forest" | "sunset" | "plum";
 export type WineStyle = "red" | "white" | "rose" | "orange" | "natural";
@@ -173,6 +175,14 @@ const sakeBottle = (
   facts: bottleFacts,
   radar: bottleRadar,
 });
+
+const createDataSlug = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[\s/・]+/g, "-")
+    .replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff-]+/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
 const wineBottle = (
   name: string,
@@ -3416,11 +3426,125 @@ const expandSakeBrandLineup = (brand: SakeBrand): SakeBrand => {
   };
 };
 
-const allSakeBrands = [
+const accentCycle: Accent[] = ["amber", "plum", "forest", "sunset", "ruby"];
+
+const pickGeneratedAccent = (seed: string): Accent => {
+  const hash = [...seed].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  return accentCycle[hash % accentCycle.length];
+};
+
+const getGeneratedBrandHighlights = (summary: string): string[] => {
+  const highlights = ["県代表", "店頭で見かけやすい"];
+
+  if (summary.includes("辛口")) {
+    highlights.push("辛口系");
+  } else if (summary.includes("華やか")) {
+    highlights.push("華やか");
+  } else if (summary.includes("旨み")) {
+    highlights.push("旨み");
+  } else if (summary.includes("食中")) {
+    highlights.push("食中向き");
+  } else {
+    highlights.push("飲み比べ向き");
+  }
+
+  return highlights;
+};
+
+const inferMethodFromLabel = (label: string) => {
+  if (label.includes("純米大吟醸")) return "純米大吟醸";
+  if (label.includes("大吟醸")) return "大吟醸";
+  if (label.includes("特別純米")) return "特別純米";
+  if (label.includes("純米吟醸")) return "純米吟醸";
+  if (label.includes("吟醸")) return "吟醸";
+  if (label.includes("本醸造")) return "本醸造";
+  if (label.includes("純米")) return "純米酒";
+  return "純米吟醸";
+};
+
+const inferTempFromLabel = (label: string) => {
+  if (label.includes("本醸造") || label.includes("辛口")) {
+    return "10-15°C";
+  }
+
+  return "8-12°C";
+};
+
+const buildGeneratedBottle = (
+  brandName: string,
+  label: string,
+  prefecture: string,
+  summary: string,
+  index: number,
+): SakeBottle => {
+  const method = inferMethodFromLabel(label);
+  const styleByIndex = ["県代表ラベル", "定番純米", "比較しやすい上位"] as const;
+  const radarByIndex: Array<[number, number, number, number, number]> = [
+    [3.9, 3.1, 3.4, 4.0, 4.0],
+    [3.6, 2.8, 3.8, 4.1, 4.1],
+    [4.2, 3.0, 3.5, 4.0, 4.3],
+  ];
+
+  return sakeBottle(
+    label,
+    styleByIndex[index] ?? "定番",
+    `${brandName} の中でも、${prefecture}で名前を見かけたときに押さえやすい定番レンジです。`,
+    `${summary} を入口としてつかみやすいよう、店頭で比較しやすい構成に整理しています。`,
+    getGeneratedBrandHighlights(summary),
+    facts(["製法", method], ["位置づけ", styleByIndex[index] ?? "定番"], ["おすすめ温度", inferTempFromLabel(label)]),
+    radar(radarByIndex[index] ?? radarByIndex[0]),
+  );
+};
+
+const createGeneratedFeaturedBrand = (
+  guide: (typeof prefectureGuides)[number],
+  brandName: string,
+): SakeBrand => {
+  const labels = prefectureFeaturedLabels[guide.name] ?? [];
+  const primaryLabel = labels.find((label) => label.includes(brandName)) ?? `${brandName} 純米吟醸`;
+  const bottleCandidates = [
+    primaryLabel,
+    `${brandName} 特別純米`,
+    `${brandName} 純米吟醸`,
+    `${brandName} 純米大吟醸`,
+  ];
+  const bottleNames = [...new Set(bottleCandidates)].slice(0, 3);
+
+  return {
+    category: "sake",
+    slug: createDataSlug(`${guide.slug}-${brandName}`),
+    name: brandName,
+    summary: `${guide.name}でよく名前が挙がる代表ブランドで、お店で銘柄名を見たときの入口として押さえやすい銘柄です。`,
+    story: `${guide.summary} という県の傾向を踏まえつつ、まずは ${brandName} の定番どころから方向性をつかめるようにしています。`,
+    accent: pickGeneratedAccent(`${guide.name}-${brandName}`),
+    highlights: getGeneratedBrandHighlights(guide.summary),
+    facts: facts(
+      ["都道府県", guide.name],
+      ["地域", guide.region],
+      ["位置づけ", "県代表ブランド"],
+      ["見るポイント", "店頭で見かける定番ラベル"],
+    ),
+    lineup: bottleNames.map((label, index) =>
+      buildGeneratedBottle(brandName, label, guide.name, guide.summary, index),
+    ),
+  };
+};
+
+const baseSakeBrands = [
   ...sakeBrands,
   ...prefectureRepresentativeSakeBrands,
   ...additionalDetailedSakeBrands,
 ].map(expandSakeBrandLineup);
+
+const baseSakeBrandNames = new Set(baseSakeBrands.map((brand) => brand.name));
+
+const generatedFeaturedSakeBrands = prefectureGuides.flatMap((guide) =>
+  guide.featuredBrands
+    .filter((brandName) => !baseSakeBrandNames.has(brandName))
+    .map((brandName) => createGeneratedFeaturedBrand(guide, brandName)),
+);
+
+const allSakeBrands = [...baseSakeBrands, ...generatedFeaturedSakeBrands];
 
 export function getReadyCategories() {
   return categories.filter((category) => category.status === "ready");
