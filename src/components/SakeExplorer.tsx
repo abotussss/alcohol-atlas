@@ -70,7 +70,7 @@ function BrandCard({ brand, note }: { brand: SakeBrand; note?: string }) {
       href={`/sake/${brand.slug}`}
       className="rounded-[1rem] border border-white/50 bg-white/82 p-3 shadow-[0_16px_44px_rgba(48,29,19,0.08)] backdrop-blur-sm transition hover:-translate-y-1 hover:shadow-[0_22px_56px_rgba(48,29,19,0.12)] sm:rounded-[1.5rem] sm:p-5"
     >
-      <div className="h-24 overflow-hidden rounded-[0.95rem] bg-[linear-gradient(180deg,rgba(248,244,237,1),rgba(234,225,214,0.92))] sm:h-auto sm:rounded-[1.15rem]">
+      <div className="overflow-hidden rounded-[0.95rem] bg-[linear-gradient(180deg,rgba(248,244,237,1),rgba(234,225,214,0.92))] sm:rounded-[1.15rem]">
         <DrinkIllustration
           kind="sake"
           title={brand.name}
