@@ -10,7 +10,7 @@ import type {
 } from "@/data/catalog";
 import {
   getSakeBrandPrefecture,
-  inferSakeServeStyles,
+  inferPrimarySakeServeStyle,
   inferSakeTaste,
 } from "@/data/catalog";
 import type { PrefectureGuide } from "@/data/prefectures";
@@ -179,7 +179,7 @@ export function SakeExplorer({
     () =>
       brands.flatMap((brand) =>
         brand.lineup
-          .filter((bottle) => inferSakeServeStyles(bottle).includes(serveStyle))
+          .filter((bottle) => inferPrimarySakeServeStyle(bottle) === serveStyle)
           .map((bottle) => ({ brand, bottle })),
       ),
     [brands, serveStyle],

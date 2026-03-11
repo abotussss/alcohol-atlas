@@ -3453,15 +3453,19 @@ export function getSakeBrandPrefecture(brand: SakeBrand) {
   return getFactValue(brand.facts, "都道府県");
 }
 
-export function inferSakeTaste(bottle: SakeBottle): SakeTaste {
-  const descriptorText = [
+function getSakeDescriptorText(bottle: SakeBottle) {
+  return [
     bottle.name,
     bottle.style,
     bottle.summary,
     bottle.notes,
     ...bottle.highlights,
-    ...bottle.facts.map((fact) => fact.value),
+    ...bottle.facts.map((fact) => `${fact.label}:${fact.value}`),
   ].join(" ");
+}
+
+export function inferSakeTaste(bottle: SakeBottle): SakeTaste {
+  const descriptorText = getSakeDescriptorText(bottle);
 
   if (descriptorText.match(/超辛口|大辛口|辛口|ドライ|淡麗辛口/)) {
     return "dry";
@@ -3489,27 +3493,64 @@ export function inferSakeTaste(bottle: SakeBottle): SakeTaste {
   return "balanced";
 }
 
-export function inferSakeServeStyles(bottle: SakeBottle): SakeServeStyle[] {
+export function inferPrimarySakeServeStyle(bottle: SakeBottle): SakeServeStyle {
   const tempText = getFactValue(bottle.facts, "おすすめ温度");
-  const styles = new Set<SakeServeStyle>();
+  const descriptorText = getSakeDescriptorText(bottle);
+  const combinedText = `${tempText} ${descriptorText}`;
+  const hotFriendlyPattern =
+    /熱燗|飛び切り燗|あつ燗|50-55°C|45-50°C|50°C|55°C|古酒|熟成|復古|元禄|本醸造.*辛口|辛口.*本醸造/;
 
-  if (tempText.includes("熱燗")) {
-    styles.add("hot");
+  if (combinedText.match(/熱燗|飛び切り燗|あつ燗|50-55°C|45-50°C|50°C|55°C/)) {
+    return "hot";
   }
 
-  if (tempText.includes("ぬる燗") || tempText.includes("燗")) {
-    styles.add("warm");
+  if (tempText.includes("常温-燗") && combinedText.match(hotFriendlyPattern)) {
+    return "hot";
+  }
+
+  if (
+    combinedText.match(
+      /ぬる燗|上燗|常温-燗|燗向き|燗でも|山廃|生もと|10-15°C|12-18°C|12-16°C|常温|熟成|古酒/,
+    )
+  ) {
+    return "warm";
   }
 
   if (tempText.includes("常温")) {
+    return "warm";
+  }
+
+  if (
+    combinedText.match(
+      /\b([5-9]|1[0-2])°C\b|6-10°C|6-8°C|8-10°C|8-12°C|10°C前後|10-12°C|10-14°C|12°C|冷酒|冷やして|雪冷え|花冷え/,
+    )
+  ) {
+    return "cold";
+  }
+
+  if (combinedText.includes("燗")) {
+    return "warm";
+  }
+
+  return "cold";
+}
+
+export function inferSakeServeStyles(bottle: SakeBottle): SakeServeStyle[] {
+  const primaryStyle = inferPrimarySakeServeStyle(bottle);
+  const tempText = getFactValue(bottle.facts, "おすすめ温度");
+  const styles = new Set<SakeServeStyle>();
+
+  styles.add(primaryStyle);
+
+  if (tempText.includes("熱燗") || tempText.match(/50-55°C|45-50°C|50°C|55°C/)) {
+    styles.add("hot");
+  }
+
+  if (tempText.includes("ぬる燗") || tempText.includes("燗") || tempText.includes("常温")) {
     styles.add("warm");
   }
 
   if (tempText.match(/\b([5-9]|1[0-2])°C\b|6-10°C|6-8°C|8-10°C|8-12°C|10°C前後|10-12°C|10-14°C|12°C/)) {
-    styles.add("cold");
-  }
-
-  if (styles.size === 0) {
     styles.add("cold");
   }
 
