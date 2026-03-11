@@ -47,6 +47,10 @@ function getDynamicSakeFrame(seed: string) {
 }
 
 function getSakeFrame(title: string, themeKey = "") {
+  if (themeKey.startsWith("sake-prefecture-")) {
+    return getDynamicSakeFrame(themeKey);
+  }
+
   if (/獺祭|十四代|花陽浴/.test(title)) {
     return { frame: "#2d211b", surface: "#e8d184", glow: "#f7eab8" };
   }
@@ -73,10 +77,6 @@ function getSakeFrame(title: string, themeKey = "") {
 
   if (/作|醸し人九平次|仙禽|寒菊|鳳凰美田/.test(title)) {
     return { frame: "#302720", surface: "#d8ccb7", glow: "#eee5d8" };
-  }
-
-  if (themeKey.startsWith("sake-prefecture-")) {
-    return getDynamicSakeFrame(themeKey);
   }
 
   return { frame: "#2f221d", surface: "#e7d087", glow: "#f5e7ba" };
