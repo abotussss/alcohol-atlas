@@ -28,6 +28,7 @@ function VarietyCard({ variety }: { variety: WineVariety }) {
             title={variety.name}
             accent={variety.accent}
             idBase={`wine-explorer-${variety.slug}`}
+            themeKey={`wine-style-${variety.style}`}
           />
         </div>
         <div className="min-w-0">

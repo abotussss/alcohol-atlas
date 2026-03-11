@@ -8,6 +8,7 @@ type Props = {
   title: string;
   accent: Accent;
   idBase: string;
+  themeKey?: string;
 };
 
 const accentFrameMap: Record<Accent, { frame: string; surface: string; glow: string }> = {
@@ -30,7 +31,17 @@ function hashValue(value: string) {
   return [...value].reduce((acc, char, index) => acc + char.charCodeAt(0) * (index + 1), 0);
 }
 
-function getSakeFrame(title: string) {
+function getDynamicSakeFrame(seed: string) {
+  const hash = hashValue(seed);
+  const hue = 20 + (hash % 170);
+  const surface = `hsl(${hue} 52% 72%)`;
+  const glow = `hsl(${hue} 72% 88%)`;
+  const frame = `hsl(${hue} 24% 17%)`;
+
+  return { frame, surface, glow };
+}
+
+function getSakeFrame(title: string, themeKey = "") {
   if (/獺祭|十四代|花陽浴/.test(title)) {
     return { frame: "#2a1d18", surface: "#e7c968", glow: "#f5e7ad" };
   }
@@ -59,31 +70,33 @@ function getSakeFrame(title: string) {
     return { frame: "#212322", surface: "#cfc6b6", glow: "#ece4d8" };
   }
 
-  if (/新政|No\.6|仙禽/.test(title)) {
-    return { frame: "#1f2620", surface: "#cad2a9", glow: "#e9edd6" };
-  }
-
-  if (/黒龍|久保田|八海山|真澄/.test(title)) {
-    return { frame: "#252220", surface: "#d7d2c7", glow: "#efebe2" };
-  }
-
-  if (/天狗舞|酔鯨|鍋島|田酒/.test(title)) {
-    return { frame: "#2d1f1a", surface: "#d8bb95", glow: "#f0ddc7" };
+  if (themeKey.startsWith("sake-prefecture-")) {
+    return getDynamicSakeFrame(themeKey);
   }
 
   return { frame: "#2e201d", surface: "#e5ca79", glow: "#f4e6b0" };
 }
 
-function getWineFrame(title: string) {
-  if (/Rose|ロゼ/i.test(title)) {
+function getWineFrame(title: string, themeKey = "") {
+  const styleKey = themeKey.replace("wine-style-", "");
+
+  if (styleKey === "white") {
+    return { frame: "#72653f", surface: "#ead89f", glow: "#fbf1d1" };
+  }
+
+  if (styleKey === "red") {
+    return { frame: "#401216", surface: "#9a3138", glow: "#df8790" };
+  }
+
+  if (styleKey === "rose") {
     return { frame: "#6a2437", surface: "#df8da3", glow: "#f4c7d3" };
   }
 
-  if (/Orange|オレンジ/i.test(title)) {
+  if (styleKey === "orange") {
     return { frame: "#663116", surface: "#df8a34", glow: "#f5c78f" };
   }
 
-  if (/Natural|自然派/i.test(title)) {
+  if (styleKey === "natural") {
     return { frame: "#31402f", surface: "#889a63", glow: "#ced9b4" };
   }
 
@@ -110,13 +123,13 @@ function getHeroSource(kind: CategorySlug) {
   return "";
 }
 
-function getHeroFrame(kind: CategorySlug, title: string, accent: Accent) {
+function getHeroFrame(kind: CategorySlug, title: string, accent: Accent, themeKey = "") {
   if (kind === "sake") {
-    return getSakeFrame(title);
+    return getSakeFrame(title, themeKey);
   }
 
   if (kind === "wine") {
-    return getWineFrame(title);
+    return getWineFrame(title, themeKey);
   }
 
   return accentFrameMap[accent];
@@ -176,14 +189,14 @@ function FallbackIllustration({
   );
 }
 
-export function DrinkIllustration({ kind, title, accent, idBase }: Props) {
+export function DrinkIllustration({ kind, title, accent, idBase, themeKey = "" }: Props) {
   const heroSource = getHeroSource(kind);
 
   if (!heroSource) {
     return <FallbackIllustration title={title} accent={accent} kind={kind} idBase={idBase} />;
   }
 
-  const frame = getHeroFrame(kind, title, accent);
+  const frame = getHeroFrame(kind, title, accent, themeKey);
 
   return (
     <div

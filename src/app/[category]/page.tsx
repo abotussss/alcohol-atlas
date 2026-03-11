@@ -90,6 +90,13 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             title={current.latinTitle}
             accent={current.accent}
             idBase={`category-${current.slug}`}
+            themeKey={
+              current.slug === "wine"
+                ? "wine-style-red"
+                : current.slug === "sake"
+                  ? "sake-prefecture-山口県"
+                  : current.slug
+            }
           />
         </div>
       </section>

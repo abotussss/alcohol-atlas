@@ -67,6 +67,13 @@ export default function Home() {
                   title={category.latinTitle}
                   accent={category.accent}
                   idBase={`home-${category.slug}`}
+                  themeKey={
+                    category.slug === "wine"
+                      ? "wine-style-red"
+                      : category.slug === "sake"
+                        ? "sake-prefecture-山口県"
+                        : category.slug
+                  }
                 />
               </div>
               <div className="flex items-center justify-between px-2 pb-2">
