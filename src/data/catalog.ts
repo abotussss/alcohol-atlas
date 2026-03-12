@@ -3629,6 +3629,54 @@ const inferTempFromLabel = (label: string) => {
   return "8-12°C";
 };
 
+const getPrefectureContext = (summary: string) => {
+  if (summary.includes("辛口")) return "県全体として切れ味を重視する傾向があり、この銘柄も後味の運び方を見ると個性が掴みやすいです。";
+  if (summary.includes("華やか")) return "県の人気酒に多い華やかさの出し方を、このラベルがどれだけ上品にまとめているかが見どころです。";
+  if (summary.includes("旨み")) return "県の酒に共通する旨みの出し方を、どこまで重くせずに整えているかを意識すると違いが見えます。";
+  if (summary.includes("食中")) return "地元の食文化に寄り添う食中酒らしさがあり、香りを上げすぎずに料理へつなぐ設計かを見ると分かりやすいです。";
+  if (summary.includes("透明感")) return "透明感を残しながら旨みをどこまで乗せるかが、この県の酒を見分ける一つの基準になります。";
+  return "県の酒質傾向を踏まえつつ、このラベルがどこを強調しているかを見ると店頭でも選びやすくなります。";
+};
+
+const getMethodContext = (method: string) => {
+  if (method === "純米大吟醸") return "純米大吟醸なので、香りの立ち方と口当たりの細かさがブランド内の上位感として現れやすいです。";
+  if (method === "大吟醸") return "大吟醸系らしく、果実感や吟醸香がどこまで上品にまとまるかが評価の分かれ目です。";
+  if (method === "純米吟醸") return "純米吟醸として、香りと米の旨みの均衡が取りやすく、ブランドの中核レンジとして比較しやすいです。";
+  if (method === "吟醸") return "吟醸系なので、立ち上がりの華やかさと後味の軽さを先に掴むとイメージしやすいです。";
+  if (method === "特別純米") return "特別純米は香りよりも米の旨みや食中での収まり方に個性が出やすく、ブランドの土台を知るのに向いています。";
+  if (method === "本醸造") return "本醸造系は軽快さや燗との相性に個性が出やすく、普段飲み向きかどうかが見えやすいです。";
+  if (method === "純米酒") return "純米酒として、香りを上げすぎずに旨みをどう見せるかがブランド差として出やすいレンジです。";
+  return "造りの違いがそのまま質感に出やすいタイプなので、他のラベルと飲み比べると差が掴みやすいです。";
+};
+
+const getLabelCue = (label: string) => {
+  if (label.includes("生") || label.includes("しぼり") || label.includes("直汲")) {
+    return "生酒やしぼりたて系ならではの明るい輪郭が出やすく、開けたての印象を楽しむタイプとして認識しやすいです。";
+  }
+  if (label.includes("スパークリング") || label.includes("咲")) {
+    return "発泡感のある設計で、通常の日本酒より乾杯酒や軽い前菜に寄せて考えると選びやすいです。";
+  }
+  if (label.includes("山田錦")) {
+    return "山田錦のラベルは、香りの上品さと質感の滑らかさが前に出やすく、上位レンジの基準として見やすいです。";
+  }
+  if (label.includes("雄町")) {
+    return "雄町系は厚みや丸みが出やすく、同じブランド内でも旨みのふくらみ方で違いを感じやすいです。";
+  }
+  if (label.includes("愛山")) {
+    return "愛山を使うタイプは香りや甘みが少し華やぎやすく、ブランドの中でも親しみやすい一本になりやすいです。";
+  }
+  if (label.includes("禅") || label.includes("守破離") || label.includes("鳳麟")) {
+    return "固有ネームの付いた代表ラベルで、その蔵が店頭で最も見せたい世界観を掴む入口として使われることが多いです。";
+  }
+  if (label.includes("純米大吟醸") || label.includes("大吟醸")) {
+    return "上位レンジとして扱われやすく、贈答用や特別な席で名前を見かけたときの判断材料になります。";
+  }
+  if (label.includes("特別純米") || label.includes("純米")) {
+    return "定番帯として出回りやすく、ブランドの食中性や日常酒としての性格を知るのに向いています。";
+  }
+  return "店頭でも識別しやすい代表ラベルなので、まずはこの名前を起点にブランドの方向性を覚えると迷いにくいです。";
+};
+
 const buildGeneratedBottle = (
   brandName: string,
   label: string,
@@ -3637,20 +3685,28 @@ const buildGeneratedBottle = (
   index: number,
 ): SakeBottle => {
   const method = inferMethodFromLabel(label);
+  const temperature = inferTempFromLabel(label);
   const styleByIndex = ["県代表ラベル", "定番純米", "比較しやすい上位"] as const;
   const radarByIndex: Array<[number, number, number, number, number]> = [
     [3.9, 3.1, 3.4, 4.0, 4.0],
     [3.6, 2.8, 3.8, 4.1, 4.1],
     [4.2, 3.0, 3.5, 4.0, 4.3],
   ];
+  const background = [
+    `${brandName} の中で ${label} は、店頭で名前を見かけたときに最初の比較軸にしやすいラベルです。`,
+    getMethodContext(method),
+    getLabelCue(label),
+    getPrefectureContext(summary),
+    `温度帯は ${temperature} を基準に考えると輪郭を掴みやすく、他の同ブランドと飲み比べると差が見えます。`,
+  ].join(" ");
 
   return sakeBottle(
     label,
     styleByIndex[index] ?? "定番",
     `${brandName} の中でも、${prefecture}で名前を見かけたときに押さえやすい定番レンジです。`,
-    `${summary} を入口としてつかみやすいよう、店頭で比較しやすい構成に整理しています。`,
+    background,
     getGeneratedBrandHighlights(summary),
-    facts(["製法", method], ["位置づけ", styleByIndex[index] ?? "定番"], ["おすすめ温度", inferTempFromLabel(label)]),
+    facts(["製法", method], ["位置づけ", styleByIndex[index] ?? "定番"], ["おすすめ温度", temperature]),
     radar(radarByIndex[index] ?? radarByIndex[0]),
   );
 };
