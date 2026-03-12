@@ -3903,6 +3903,46 @@ export function inferSakeServeStyles(bottle: SakeBottle): SakeServeStyle[] {
   return [...styles];
 }
 
+export function inferSakeBottleIntent(brand: SakeBrand, bottle: SakeBottle) {
+  const descriptorText = getSakeDescriptorText(bottle);
+  const method = getFactValue(bottle.facts, "製法");
+  const positioning =
+    getFactValue(bottle.facts, "位置づけ") ||
+    getFactValue(bottle.facts, "シリーズ") ||
+    getFactValue(bottle.facts, "特徴") ||
+    getFactValue(bottle.facts, "酒米");
+
+  if (descriptorText.match(/スパークリング|発泡|にごり/)) {
+    return `蔵としては、${brand.name} の世界観をより軽やかに広げ、乾杯酒としても手に取りやすくする意図があるラベルです。`;
+  }
+
+  if (descriptorText.match(/生酒|しぼりたて|直汲|無濾過生原酒/)) {
+    return `蔵としては、${brand.name} の輪郭をよりフレッシュに見せ、季節感や開けたての勢いを伝える意図がある一本です。`;
+  }
+
+  if (descriptorText.match(/愛山|雄町|山田錦|出羽燦々|八反錦|千本錦|赤磐雄町|山田穂|香子|穂増/)) {
+    return `蔵としては、酒米違いによる香味の差を見せながら、${brand.name} の個性を別の角度で伝える意図があるラベルです。`;
+  }
+
+  if (descriptorText.match(/上位|最高峰|純米大吟醸|大吟醸|限定上位|上位定番/)) {
+    return `蔵としては、${brand.name} の上質さや完成度をより明確に示し、特別な場面でも選ばれる一本として設計した意図があります。`;
+  }
+
+  if (descriptorText.match(/特別純米|純米|食中|定番/)) {
+    return `蔵としては、${brand.name} の土台になる味わいを分かりやすく示し、食事と合わせやすい定番として届ける意図があります。`;
+  }
+
+  if (descriptorText.match(/吟醸|華やか|果実感|モダン/)) {
+    return `蔵としては、${brand.name} の香りや飲みやすさを分かりやすく見せ、初めてでも印象を掴みやすくする意図がある一本です。`;
+  }
+
+  if (method || positioning) {
+    return `蔵としては、${method || positioning} の個性を通して ${brand.name} の方向性を伝え、店頭でも選びやすくする意図があるラベルです。`;
+  }
+
+  return `蔵としては、${brand.name} らしさを素直に伝え、店頭で名前を見かけたときに選びやすい入口にする意図があります。`;
+}
+
 export type SearchItem = {
   id: string;
   title: string;
