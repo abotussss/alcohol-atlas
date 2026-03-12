@@ -3635,46 +3635,46 @@ const getPrefectureContext = (summary: string) => {
   if (summary.includes("旨み")) return "県の酒に共通する旨みの出し方を、どこまで重くせずに整えているかを意識すると違いが見えます。";
   if (summary.includes("食中")) return "地元の食文化に寄り添う食中酒らしさがあり、香りを上げすぎずに料理へつなぐ設計かを見ると分かりやすいです。";
   if (summary.includes("透明感")) return "透明感を残しながら旨みをどこまで乗せるかが、この県の酒を見分ける一つの基準になります。";
-  return "県の酒質傾向を踏まえつつ、このラベルがどこを強調しているかを見ると店頭でも選びやすくなります。";
+  return "県の酒質傾向の中で、このラベルがどこを強調しているかを見ると選びやすいです。";
 };
 
 const getMethodContext = (method: string) => {
-  if (method === "純米大吟醸") return "純米大吟醸なので、香りの立ち方と口当たりの細かさがブランド内の上位感として現れやすいです。";
-  if (method === "大吟醸") return "大吟醸系らしく、果実感や吟醸香がどこまで上品にまとまるかが評価の分かれ目です。";
-  if (method === "純米吟醸") return "純米吟醸として、香りと米の旨みの均衡が取りやすく、ブランドの中核レンジとして比較しやすいです。";
-  if (method === "吟醸") return "吟醸系なので、立ち上がりの華やかさと後味の軽さを先に掴むとイメージしやすいです。";
-  if (method === "特別純米") return "特別純米は香りよりも米の旨みや食中での収まり方に個性が出やすく、ブランドの土台を知るのに向いています。";
-  if (method === "本醸造") return "本醸造系は軽快さや燗との相性に個性が出やすく、普段飲み向きかどうかが見えやすいです。";
-  if (method === "純米酒") return "純米酒として、香りを上げすぎずに旨みをどう見せるかがブランド差として出やすいレンジです。";
-  return "造りの違いがそのまま質感に出やすいタイプなので、他のラベルと飲み比べると差が掴みやすいです。";
+  if (method === "純米大吟醸") return "ブランド内では上位帯として見られやすく、香りと質感の整い方が見どころです。";
+  if (method === "大吟醸") return "大吟醸らしく、香りの上品さと余韻の伸びで違いが出やすいです。";
+  if (method === "純米吟醸") return "中核レンジとして比較しやすく、香りと旨みの均衡が分かりやすいです。";
+  if (method === "吟醸") return "吟醸系なので、華やかさと後味の軽さが掴みやすいです。";
+  if (method === "特別純米") return "特別純米らしく、香りより米の旨みや食中での収まり方が見えやすいです。";
+  if (method === "本醸造") return "本醸造系なので、軽快さや燗との相性が個性として出やすいです。";
+  if (method === "純米酒") return "純米酒として、香りを上げすぎず旨みをどう見せるかが見やすいです。";
+  return "造りの違いがそのまま質感に出やすいタイプです。";
 };
 
 const getLabelCue = (label: string) => {
   if (label.includes("生") || label.includes("しぼり") || label.includes("直汲")) {
-    return "生酒やしぼりたて系ならではの明るい輪郭が出やすく、開けたての印象を楽しむタイプとして認識しやすいです。";
+    return "生酒やしぼりたて系らしい明るさが出やすく、みずみずしさを取りにいく一本です。";
   }
   if (label.includes("スパークリング") || label.includes("咲")) {
-    return "発泡感のある設計で、通常の日本酒より乾杯酒や軽い前菜に寄せて考えると選びやすいです。";
+    return "発泡感のある設計で、乾杯酒や軽い前菜向きとして捉えやすいです。";
   }
   if (label.includes("山田錦")) {
-    return "山田錦のラベルは、香りの上品さと質感の滑らかさが前に出やすく、上位レンジの基準として見やすいです。";
+    return "山田錦らしい上品さと滑らかさが前に出やすいラベルです。";
   }
   if (label.includes("雄町")) {
-    return "雄町系は厚みや丸みが出やすく、同じブランド内でも旨みのふくらみ方で違いを感じやすいです。";
+    return "雄町系は厚みや丸みが出やすく、旨みのふくらみ方で違いが見えます。";
   }
   if (label.includes("愛山")) {
-    return "愛山を使うタイプは香りや甘みが少し華やぎやすく、ブランドの中でも親しみやすい一本になりやすいです。";
+    return "愛山を使うタイプは香りや甘みが少し華やぎやすいです。";
   }
   if (label.includes("禅") || label.includes("守破離") || label.includes("鳳麟")) {
-    return "固有ネームの付いた代表ラベルで、その蔵が店頭で最も見せたい世界観を掴む入口として使われることが多いです。";
+    return "固有ネームの付いた代表ラベルで、その蔵の看板的な世界観を掴みやすいです。";
   }
   if (label.includes("純米大吟醸") || label.includes("大吟醸")) {
-    return "上位レンジとして扱われやすく、贈答用や特別な席で名前を見かけたときの判断材料になります。";
+    return "上位レンジとして扱われやすく、特別な場面で選ばれやすいタイプです。";
   }
   if (label.includes("特別純米") || label.includes("純米")) {
-    return "定番帯として出回りやすく、ブランドの食中性や日常酒としての性格を知るのに向いています。";
+    return "定番帯として出回りやすく、日常酒としての性格を掴みやすいです。";
   }
-  return "店頭でも識別しやすい代表ラベルなので、まずはこの名前を起点にブランドの方向性を覚えると迷いにくいです。";
+  return "店頭でも識別しやすい代表ラベルで、ブランドの方向性を掴む入口になります。";
 };
 
 const buildGeneratedBottle = (
@@ -3685,20 +3685,14 @@ const buildGeneratedBottle = (
   index: number,
 ): SakeBottle => {
   const method = inferMethodFromLabel(label);
-  const temperature = inferTempFromLabel(label);
   const styleByIndex = ["県代表ラベル", "定番純米", "比較しやすい上位"] as const;
   const radarByIndex: Array<[number, number, number, number, number]> = [
     [3.9, 3.1, 3.4, 4.0, 4.0],
     [3.6, 2.8, 3.8, 4.1, 4.1],
     [4.2, 3.0, 3.5, 4.0, 4.3],
   ];
-  const background = [
-    `${brandName} の中で ${label} は、店頭で名前を見かけたときに最初の比較軸にしやすいラベルです。`,
-    getMethodContext(method),
-    getLabelCue(label),
-    getPrefectureContext(summary),
-    `温度帯は ${temperature} を基準に考えると輪郭を掴みやすく、他の同ブランドと飲み比べると差が見えます。`,
-  ].join(" ");
+  const temperature = inferTempFromLabel(label);
+  const background = `${brandName} の ${label} は、${getLabelCue(label)} ${getMethodContext(method)} ${getPrefectureContext(summary)}`;
 
   return sakeBottle(
     label,
