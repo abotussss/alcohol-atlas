@@ -165,7 +165,7 @@ export default async function DetailPage({ params }: Props) {
                         背景情報
                       </p>
                       <p className="mt-2 text-sm leading-7 text-stone-600">
-                        {bottle.summary} {inferSakeBottleIntent(brand, bottle)}
+                        {inferSakeBottleIntent(brand, bottle)}
                       </p>
                     </div>
                     <div className="mt-4 rounded-[1.05rem] border border-stone-200/80 bg-white/72 p-4">
