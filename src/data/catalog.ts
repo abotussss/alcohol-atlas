@@ -4055,6 +4055,13 @@ export function inferSakeBottleDrinkingMoment(bottle: SakeBottle) {
     return "";
   })();
 
+  if (
+    timing === "食事と合わせて通しで。" &&
+    pairing === "旨みのある料理や和食全般と。"
+  ) {
+    return "";
+  }
+
   const result = [timing, pairing].filter(Boolean).join(" ");
   return result === "食事と合わせて通しで。" ? "" : result;
 }
